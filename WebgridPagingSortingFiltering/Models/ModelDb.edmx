@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EtiketAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Gruplar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GrupAdi" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="GrupSiraNo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kisiler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GrupId" Type="int" Nullable="false" />
+          <Property Name="Adi" Type="nvarchar" MaxLength="100" />
+          <Property Name="Soyadi" Type="nvarchar" MaxLength="100" />
+          <Property Name="Unvani" Type="nvarchar" MaxLength="100" />
+          <Property Name="FirmaUnvani" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsTel" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="Cep" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="Fax" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="Adres" Type="nvarchar" MaxLength="200" />
+          <Property Name="Il" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ilce" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Kisiler_Gruplar">
+          <End Role="Gruplar" Type="Self.Gruplar" Multiplicity="1" />
+          <End Role="Kisiler" Type="Self.Kisiler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gruplar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kisiler">
+              <PropertyRef Name="GrupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EtiketAppModelStoreContainer">
+          <EntitySet Name="Gruplar" EntityType="Self.Gruplar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kisiler" EntityType="Self.Kisiler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Kisiler_Gruplar" Association="Self.FK_Kisiler_Gruplar">
+            <End Role="Gruplar" EntitySet="Gruplar" />
+            <End Role="Kisiler" EntitySet="Kisiler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EtiketAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Gruplar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GrupAdi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GrupSiraNo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kisiler" Relationship="Self.FK_Kisiler_Gruplar" FromRole="Gruplar" ToRole="Kisiler" />
+        </EntityType>
+        <EntityType Name="Kisiler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GrupId" Type="Int32" Nullable="false" />
+          <Property Name="Adi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Soyadi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Unvani" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FirmaUnvani" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsTel" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="Cep" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="Fax" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="Adres" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Il" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ilce" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Gruplar" Relationship="Self.FK_Kisiler_Gruplar" FromRole="Kisiler" ToRole="Gruplar" />
+        </EntityType>
+        <Association Name="FK_Kisiler_Gruplar">
+          <End Role="Gruplar" Type="Self.Gruplar" Multiplicity="1" />
+          <End Role="Kisiler" Type="Self.Kisiler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gruplar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kisiler">
+              <PropertyRef Name="GrupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EtiketAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Gruplar" EntityType="Self.Gruplar" />
+          <EntitySet Name="Kisiler" EntityType="Self.Kisiler" />
+          <AssociationSet Name="FK_Kisiler_Gruplar" Association="Self.FK_Kisiler_Gruplar">
+            <End Role="Gruplar" EntitySet="Gruplar" />
+            <End Role="Kisiler" EntitySet="Kisiler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EtiketAppModelStoreContainer" CdmEntityContainer="EtiketAppEntities">
+          <EntitySetMapping Name="Gruplar">
+            <EntityTypeMapping TypeName="EtiketAppModel.Gruplar">
+              <MappingFragment StoreEntitySet="Gruplar">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GrupAdi" ColumnName="GrupAdi" />
+                <ScalarProperty Name="GrupSiraNo" ColumnName="GrupSiraNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kisiler">
+            <EntityTypeMapping TypeName="EtiketAppModel.Kisiler">
+              <MappingFragment StoreEntitySet="Kisiler">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GrupId" ColumnName="GrupId" />
+                <ScalarProperty Name="Adi" ColumnName="Adi" />
+                <ScalarProperty Name="Soyadi" ColumnName="Soyadi" />
+                <ScalarProperty Name="Unvani" ColumnName="Unvani" />
+                <ScalarProperty Name="FirmaUnvani" ColumnName="FirmaUnvani" />
+                <ScalarProperty Name="IsTel" ColumnName="IsTel" />
+                <ScalarProperty Name="Cep" ColumnName="Cep" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Il" ColumnName="Il" />
+                <ScalarProperty Name="Ilce" ColumnName="Ilce" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
